@@ -8,7 +8,7 @@ import math
 details_faces = True
 details_verts = True
 
-postfixes = [ '', 'k', 'M', 'G', 'T' ]
+postfixes = ['', 'k', 'M', 'G', 'T']
 start_time = 0
 update_delay = 15.0
 
@@ -75,15 +75,14 @@ def update():
     info = []
 
     if details_verts:
-        info.append( get_stringified_numbers( total_verts, 'V' ) )
+        info.append(get_stringified_numbers(total_verts, 'V'))
     if details_faces:
-        info.append( get_stringified_numbers( total_faces, 'F' ) )
+        info.append(get_stringified_numbers(total_faces, 'F'))
 
-    project_info = len( info ) > 0 if '  |  '.join( info ) else None
+    project_info = len(info) > 0 if '  |  '.join(info) else None
 
     global start_time
     presence.update(large_image='blender_icon', large_text=app_version, details=project_path, state=project_info, start=start_time)
-
     return update_delay
 
 def close():
@@ -91,11 +90,11 @@ def close():
     presence.close()
 
 
-def get_stringified_numbers( number:int, sign:str ):
+def get_stringified_numbers(number:int, sign:str):
     global postfixes
 
-    exponent = math.floor( math.log10( number ) / 3 )
-    count = round( number / (1000 ** exponent), 1 )
-    postfix = postfixes[ exponent ]
+    exponent = math.floor(math.log10(number) / 3)
+    count = round(number / (1000 ** exponent), 1)
+    postfix = postfixes[exponent]
 
     return f'{sign}: {count}{postfix}'

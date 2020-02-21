@@ -47,8 +47,9 @@ def render_started(dummy):
     if bpy.app.timers.is_registered(update):
         bpy.app.timers.unregister(update)
 
-    global start_time # = int(round(time.time() * 1000))
-    presence.update(large_image='blender_icon', large_text=app_version, details=project_path, state='RENDERING')
+    #global start_time
+    start_time = int(round(time.time() * 1000))
+    presence.update(large_image='blender_icon', large_text=app_version, details=project_path, state='RENDERING', start=start_time)
 
 @persistent
 def render_ended(dummy):

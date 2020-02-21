@@ -5,9 +5,13 @@ import time
 import atexit
 
 update_delay = 15.0
+start_time = 0
 
 def main():
     client_id = '638415602167447553'
+
+    global start_time
+    start_time = int(round(time.time() * 1000))
 
     global presence
     presence = Presence(client_id)
@@ -37,9 +41,9 @@ def render_started(dummy):
     print('render started')
     if bpy.app.timers.is_registered(update):
         bpy.app.timers.unregister(update)
-        
-    start_time = int(round(time.time() * 1000))
-    presence.update(large_image='blender_icon', large_text=app_version, details=project_path, state='RENDERING:', start=start_time)
+
+    global start_time # = int(round(time.time() * 1000))
+    presence.update(large_image='blender_icon', large_text=app_version, details=project_path, state='RENDERING')
 
 @persistent
 def render_ended(dummy):
@@ -48,7 +52,6 @@ def render_ended(dummy):
     presence.update(large_image='blender_icon', large_text=app_version, details=project_path, state=project_info)
 
 def update():
-
     global project_path
     if bpy.data.is_saved:
         project_path = str(bpy.data.filepath).split('\\')[-1]
@@ -65,8 +68,10 @@ def update():
     global project_info
     project_info = 'Verts: ' + str(total_verts) + ' | Faces: ' + str(total_faces)
 
-    presence.update(large_image='blender_icon', large_text=app_version, details=project_path, state=project_info)
+    # start_time = int(round(time.time() * 1000))
 
+    global start_time
+    presence.update(large_image='blender_icon', large_text=app_version, details=project_path, state=project_info, start=start_time)
 
     return update_delay
 

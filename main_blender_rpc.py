@@ -5,8 +5,9 @@ import time
 import atexit
 import math
 
-update_delay = 15.0
+postfixes = [ '', 'k', 'M', 'G', 'T' ]
 start_time = 0
+update_delay = 15.0
 
 def main():
     client_id = '638415602167447553'
@@ -66,9 +67,19 @@ def update():
             total_verts += len(obj.data.vertices)
             total_faces += len(obj.data.polygons)
 
-    global project_info
+    global project_info, postfixes
     #project_info = 'Verts: ' + str(total_verts) + ' | Faces: ' + str(total_faces)
-    project_info = 'Verts: ' + str( math.floor( total_verts / 100 ) / 10 ) + 'k | Faces: ' + str( math.floor( total_faces / 100 ) / 10 ) + 'k'
+    verts_exponent = math.floor( math.log10( total_verts ) / 3 )
+    faces_exponent = math.floor( math.log10( total_faces ) / 3 )
+
+    verts_count = round( total_verts / (1000 ** verts_exponent), 1 )
+    faces_count = round( total_faces / (1000 ** faces_exponent), 1 )
+
+    verts_postfix = postfixes[ verts_exponent ]
+    faces_postfix = postfixes[ faces_exponent ]
+
+    project_info = f'Verts: {verts_count}{verts_postfix}  | Faces: {faces_count}{faces_postfix}'
+    #project_info = 'Verts: ' + str( math.floor( total_verts / 100 ) / 10 ) + 'k | Faces: ' + str( math.floor( total_faces / 100 ) / 10 ) + 'k'
 
     # start_time = int(round(time.time() * 1000))
 

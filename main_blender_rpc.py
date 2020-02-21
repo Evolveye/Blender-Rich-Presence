@@ -79,10 +79,11 @@ def update():
     if details_faces:
         info.append(get_stringified_numbers(total_faces, 'F'))
 
-    project_info = len(info) > 0 if '  |  '.join(info) else None
+    project_info = '  |  '.join(info) if len(info) > 0 else None
 
     global start_time
     presence.update(large_image='blender_icon', large_text=app_version, details=project_path, state=project_info, start=start_time)
+
     return update_delay
 
 def close():

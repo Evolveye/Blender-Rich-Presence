@@ -68,7 +68,6 @@ def update():
             total_faces += len(obj.data.polygons)
 
     global project_info, postfixes
-    #project_info = 'Verts: ' + str(total_verts) + ' | Faces: ' + str(total_faces)
     verts_exponent = math.floor( math.log10( total_verts ) / 3 )
     faces_exponent = math.floor( math.log10( total_faces ) / 3 )
 
@@ -78,10 +77,7 @@ def update():
     verts_postfix = postfixes[ verts_exponent ]
     faces_postfix = postfixes[ faces_exponent ]
 
-    project_info = f'Verts: {verts_count}{verts_postfix}  | Faces: {faces_count}{faces_postfix}'
-    #project_info = 'Verts: ' + str( math.floor( total_verts / 100 ) / 10 ) + 'k | Faces: ' + str( math.floor( total_faces / 100 ) / 10 ) + 'k'
-
-    # start_time = int(round(time.time() * 1000))
+    project_info = f'V: {verts_count}{verts_postfix}  |  F: {faces_count}{faces_postfix}'
 
     global start_time
     presence.update(large_image='blender_icon', large_text=app_version, details=project_path, state=project_info, start=start_time)

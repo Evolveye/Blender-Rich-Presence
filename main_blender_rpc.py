@@ -3,6 +3,7 @@ import bpy
 from bpy.app.handlers import persistent
 import time
 import atexit
+import math
 
 update_delay = 15.0
 start_time = 0
@@ -66,7 +67,8 @@ def update():
             total_faces += len(obj.data.polygons)
 
     global project_info
-    project_info = 'Verts: ' + str(total_verts) + ' | Faces: ' + str(total_faces)
+    #project_info = 'Verts: ' + str(total_verts) + ' | Faces: ' + str(total_faces)
+    project_info = 'Verts: ' + str( math.floor( total_verts / 100 ) / 10 ) + 'k | Faces: ' + str( math.floor( total_faces / 100 ) / 10 ) + 'k'
 
     # start_time = int(round(time.time() * 1000))
 
